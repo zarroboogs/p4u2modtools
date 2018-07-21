@@ -1,6 +1,9 @@
 
 BigEndian();
 
+// checksum - big endian uint sum of bytes, 32 bits of precision
+// if the file size is not divisible by 4, leftover bytes are ignored
+
 struct HEADER {
     // always "BBDL"
     char type[4] <bgcolor=0x4588d3>;
