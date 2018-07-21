@@ -1,0 +1,86 @@
+
+BigEndian();
+
+struct HEADER {
+    // always "BBDL"
+    char type[4] <bgcolor=0x4588d3>;
+
+    // probably sizeof(HEADER)
+    uint unk0 <bgcolor=0xcccccc>;
+
+    FSkip(4);
+
+    // number of versions
+    uint version_count <bgcolor=0x2ab456>;
+
+    // always 0x1000
+    uint unk1 <bgcolor=0xcccccc>;
+
+    // size of "UpdateFileList.bin" rounded down to nearest mult. of 0x10
+    uint rounded_size <bgcolor=0x491ff9>;
+
+    // total count of all files in all versions
+    uint total_file_count <bgcolor=0xdc0ab2>;
+
+    // total size of all files in all versions
+    uint total_file_size <bgcolor=0x063de0>;
+
+    // always 0x03
+    uint unk2 <bgcolor=0xcccccc>;
+
+    // checksum of "UpdateFileList.bin" without the header itself
+    uint checksum  <bgcolor=0x60b9b8>;
+    
+    FSkip(8);
+};
+
+struct CATALOG {
+    // size of "catalog_env.info"
+    uint size <bgcolor=0x9a83fc>;
+
+    // checksum of "catalog_env.info"
+    uint checksum <bgcolor=0xa6d8d7>;
+
+    FSkip(0x8);
+};
+
+struct VERSION {
+    // zero-based index
+    uint index  <bgcolor=0x45d472>;
+
+    // position in this file listing files for this version
+    // i.e. total count of all files in previous versions
+    uint offset <bgcolor=0xfcb6ee>;
+
+    // total size of all files in this version
+    uint ver_file_size <bgcolor=0x517cfb>;
+
+    // total count of all files in this version
+    uint ver_file_count <bgcolor=0xf854d7>;
+
+    // version dir name
+    char path[0x20] <bgcolor=0xdcdc3d>;
+};
+
+struct FILE_LISTING {
+    // total size of listed file
+    uint size <bgcolor=0xb4c7fd>;
+
+    // checksum of listed file
+    uint checksum <bgcolor=0x377c7b>;
+
+    FSkip(8);
+
+    // path of listed file relative to the "data" folder
+    // the "data" folder is located under the version folder
+    char path[0x80] <bgcolor=0xebeb93>;
+};
+
+struct BBDL {
+    HEADER h;
+    CATALOG c;
+    VERSION v[ReadUInt(0x0c)];
+    FILE_LISTING fl[ReadUInt(0x18)];
+};
+
+BBDL f;
