@@ -1,0 +1,25 @@
+
+# Game: Persona4 The ULTIMAX ULTRA SUPLEX HOLD (BLJM61209) v1.03
+# Subject: English subs
+# Author: lipsum
+p4u2_EnglishSubs: &p4u2_EnglishSubs
+
+    # jpn -> eng
+    - [ be32, 0x006479e8, 0x656e6700 ]
+    - [ be32, 0x00657d60, 0x656e6700 ]
+
+# Game: Persona4 The ULTIMAX ULTRA SUPLEX HOLD (BLJM61209) v1.03
+# Subject: Skip intro
+# Author: lipsum
+p4u2_IntroSkip: &p4u2_IntroSkip
+
+    # P4U2_00 -> nop
+    - [ be32, 0x00649be0, 0x60000000 ]
+
+# Replace with your PPU hash
+PPU-4923354ef0a4dcfda9c239d3e6712d1bc65014a9:
+
+    # comment (or uncomment) a line to disable (or enable) a modification
+    - [ load, p4u2_EnglishSubs ]
+    - [ load, p4u2_IntroSkip ]
+

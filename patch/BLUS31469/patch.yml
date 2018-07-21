@@ -1,0 +1,35 @@
+
+# Game: Persona 4 Arena Ultimax (BLUS31469) v1.01
+# Subject: Japanese subs
+# Author: lipsum
+p4u2_JapaneseSubs: &p4u2_JapaneseSubs
+
+    # eng -> jpn
+    - [ be32, 0x00647970, 0x6a706e00 ]
+    - [ be32, 0x00657cf8, 0x6a706e00 ]
+
+# Game: Persona 4 Arena Ultimax (BLUS31469) v1.01
+# Subject: Skip intro
+# Author: lipsum
+p4u2_IntroSkip: &p4u2_IntroSkip
+
+    # P4U2_00 -> nop
+    - [ be32, 0x00649b60, 0x60000000 ]
+
+# Game: Persona 4 Arena Ultimax (BLUS31469) v1.01
+# Subject: Japanese movies
+# Author: lipsum
+p4u2_JapaneseMovies: &p4u2_JapaneseMovies
+
+    # movieeng/ -> movie/
+    - [ be32, 0x00622f90, 0x6d6f7669 ]
+    - [ be32, 0x00622f94, 0x652f0000 ]
+    - [ be32, 0x00622f98, 0x00000000 ]
+
+# Replace with your PPU hash
+PPU-37d2c08ae0b656c5557506b7644e1f6a4f73d0bc:
+
+    # comment (or uncomment) a line to disable (or enable) a modification
+    #- [ load, p4u2_JapaneseSubs ]
+    - [ load, p4u2_IntroSkip ]
+    - [ load, p4u2_JapaneseMovies ]
