@@ -49,10 +49,16 @@ While (1) and (2) contain raw data files, (3) is a container file that needs to 
 
     ``` powershell
     cd extract\
-    eboot-extract-toc.ps1 boot.elf bddata-toc.txt
+    eboot-extract-toc.ps1 boot.elf bddata-toc-full.txt
     ```
 
-3. Rename the extracted file according to the table of contents:
+3. Remove file entries for files containing `_appendidlist` in their names (this was discovered using trial and error):
+
+    ``` powershell
+    gc bddata-toc-full.txt | ? { $_ -notmatch "_appendidlist" } > bddata-toc.txt
+    ```
+
+4. Rename the extracted file according to the table of contents:
 
     ``` powershell
     cd extract\
